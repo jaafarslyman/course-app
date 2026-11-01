@@ -1,0 +1,28 @@
+kind = "web"
+previewPath = "/"
+title = "English Course"
+description = "A mobile-first Arabic learning app scaffold for an English course, with an admin workspace and learner entry, course, progress, and community screens. This first version establishes the page structure without connecting authentication, course data, media, or messaging."
+version = "1.0.0"
+id = "artifacts/english-course"
+router = "path"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 18807
+
+[services.development]
+run = "pnpm --filter @workspace/english-course run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/english-course", "run", "build" ]
+serve = "static"
+publicDir = "artifacts/english-course/dist/public"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "18807"
+BASE_PATH = "/"
