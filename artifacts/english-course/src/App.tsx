@@ -10,7 +10,6 @@ import {
 import {
   AdminCommunityPage,
   AdminContentPage,
-  AdminCoursesPage,
   AdminLearnersPage,
   AdminOverview,
 } from '@/pages/admin';
@@ -18,9 +17,13 @@ import { AdminSignInPage, LearnerAccessPage } from '@/pages/auth-pages';
 import {
   LearnerCommunityPage,
   LearnerContentPage,
-  LearnerCoursePage,
   LearnerHomePage,
 } from '@/pages/learner';
+import {
+  AdminCoursesIndexPage,
+  CourseBuilderPage,
+} from '@/pages/course-admin';
+import { LearnerCoursePage } from '@/pages/course-player';
 import { LearnerSessionProvider, useLearnerSession } from '@/lib/learner-session-context';
 import {
   errorCode,
@@ -57,7 +60,12 @@ export default function App() {
           </Route>
           <Route path="/admin/courses">
             <RequireAdmin>
-              <AdminCoursesPage />
+              <AdminCoursesIndexPage />
+            </RequireAdmin>
+          </Route>
+          <Route path="/admin/courses/:courseId">
+            <RequireAdmin>
+              <CourseBuilderPage />
             </RequireAdmin>
           </Route>
           <Route path="/admin/content">
@@ -77,6 +85,11 @@ export default function App() {
             </RequireLearner>
           </Route>
           <Route path="/learn/course">
+            <RequireLearner>
+              <LearnerCoursePage />
+            </RequireLearner>
+          </Route>
+          <Route path="/learn/course/:courseId">
             <RequireLearner>
               <LearnerCoursePage />
             </RequireLearner>
